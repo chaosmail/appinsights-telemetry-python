@@ -2,12 +2,13 @@
 
 Log your system telemetry to AppInsights custom metrics using the [psutil](https://psutil.readthedocs.io/en/latest/) library in Python. To visualize the telemetry data you can use [Kusto Query Language](https://docs.microsoft.com/en-us/azure/kusto/query/) in AppInsights.
 
-## Quick'n'dirty
+## Quick'n'dirty Installation
+
+You can install `appinsights-telemetry-logger` utility directly from Github.
 
 ```sh
-curl https://raw.githubusercontent.com/chaosmail/appinsights-telemetry-python/master/main.py
-python -m pip install appinsights psutil
-python main.py -- options
+$ pip install git+https://github.com/chaosmail/appinsights-telemetry-python#appinsights-telemetry-python.egg
+$ appinsights-telemetry-logger -h
 ```
 
 ## Options
@@ -15,7 +16,8 @@ python main.py -- options
 By default, the telemetry logger only logs the CPU utilization in percent. However, many other metrics exposed by `psutil` can be logged as well using the apppropriate command line options.
 
 ```
-usage: main.py [-h] -k APPINSIGHTS_KEY [-c CPU_INTERVAL] [-l LOG_INTERVAL]
+usage: appinsights-telemetry-logger
+	       [-h] -k APPINSIGHTS_KEY [-c CPU_INTERVAL] [-l LOG_INTERVAL]
                [-p] [--percpu] [--perdisk] [--path PATH] [--pernic]
                [--cpu-times] [--cpu-stats] [--virtual-memory] [--swap-memory]
                [--disk-usage] [--disk-io-counters] [--net-io-counters]
@@ -44,7 +46,7 @@ optional arguments:
 Log the CPU utilization, disk usage and virtual memory consumption every 10 seconds.
 
 ```sh
-python main.py \
+appinsights-telemetry-logger \
 	--appinisghts-key <insert instrumentation key> \
 	--log-interval 10 \
 	--disk-usage \
