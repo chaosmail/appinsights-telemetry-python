@@ -6,7 +6,7 @@ import psutil
 
 # wait x seconds to compute the CPU utilization
 # or compute utilization between the last call
-CPU_INTERVAL_S = None
+CPU_INTERVAL_S = 0
 
 # wait x seconds to log the telemetry data
 LOG_INTERVAL_S = 5
@@ -25,8 +25,8 @@ def parse_cli_args():
     """Parses the CLI arguments"""
     parser = argparse.ArgumentParser(add_help=True)
     parser.add_argument('-k', '--appinsights-key', required=True)
-    parser.add_argument('-c', '--cpu-interval', default=CPU_INTERVAL_S)
-    parser.add_argument('-l', '--log-interval', default=LOG_INTERVAL_S)
+    parser.add_argument('-c', '--cpu-interval', default=CPU_INTERVAL_S, type=int)
+    parser.add_argument('-l', '--log-interval', default=LOG_INTERVAL_S, type=int)
     parser.add_argument('-p', '--print', action='store_true')    
 
     # Configure the counters

@@ -47,7 +47,7 @@ Log the CPU utilization, disk usage and virtual memory consumption every 10 seco
 
 ```sh
 appinsights-telemetry-logger \
-	--appinisghts-key <insert instrumentation key> \
+	--appinsights-key <insert instrumentation key> \
 	--log-interval 10 \
 	--disk-usage \
 	--virtual-memory 
