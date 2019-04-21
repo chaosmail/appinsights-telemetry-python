@@ -55,6 +55,11 @@ def get_cpu_counters(args={}):
     
     res['cpu_percent'] = psutil.cpu_percent(interval=interval, percpu=percpu)
 
+    # Convert Unix style CPU utilization to task manager style
+    if percpu is False:
+        num_cpus = psutil.cpu_count(logical=False)
+        res['cpu_percent'] /= num_cpus
+
     if args.get('cpu_times', False):
         res['cpu_times'] = to_dict(psutil.cpu_times(percpu=percpu))
 
