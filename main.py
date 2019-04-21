@@ -27,22 +27,22 @@ def parse_cli_args():
     parser.add_argument('-k', '--appinsights-key', required=True)
     parser.add_argument('-c', '--cpu-interval', default=CPU_INTERVAL_S)
     parser.add_argument('-l', '--log-interval', default=LOG_INTERVAL_S)
-    parser.add_argument('-p', '--print', nargs='?', const=True, default=False)    
+    parser.add_argument('-p', '--print', action='store_true')    
 
     # Configure the counters
-    parser.add_argument('--percpu', nargs='?', const=True, default=False)
-    parser.add_argument('--perdisk', nargs='?', const=True, default=False)
+    parser.add_argument('--percpu', action='store_true')
+    parser.add_argument('--perdisk', action='store_true')
     parser.add_argument('--path', default='/')
-    parser.add_argument('--pernic', nargs='?', const=True, default=False)
+    parser.add_argument('--pernic', action='store_true')
     
     # Enable additional counters
-    parser.add_argument('--cpu-times', nargs='?', const=True, default=False)
-    parser.add_argument('--cpu-stats', nargs='?', const=True, default=False)
-    parser.add_argument('--virtual-memory', nargs='?', const=True, default=False)
-    parser.add_argument('--swap-memory', nargs='?', const=True, default=False)
-    parser.add_argument('--disk-usage', nargs='?', const=True, default=False)
-    parser.add_argument('--disk-io-counters', nargs='?', const=True, default=False)
-    parser.add_argument('--net-io-counters', nargs='?', const=True, default=False)
+    parser.add_argument('--cpu-times', action='store_true')
+    parser.add_argument('--cpu-stats', action='store_true')
+    parser.add_argument('--virtual-memory', action='store_true')
+    parser.add_argument('--swap-memory', action='store_true')
+    parser.add_argument('--disk-usage', action='store_true')
+    parser.add_argument('--disk-io-counters', action='store_true')
+    parser.add_argument('--net-io-counters', action='store_true')
 
     return parser.parse_args()
 

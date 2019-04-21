@@ -7,4 +7,4 @@ install:
 	pipenv install
 
 run:
-	pipenv run python main.py -k $(APPINSIGHTS_KEY) --print --cpu-stats --virtual-memory
+	pipenv run python main.py -k $(APPINSIGHTS_KEY) --print --cpu-stats --virtual-memory --disk-usage
