@@ -1,16 +1,18 @@
 # Python AppInsights Telemetry Logger
 
-Log your system telemetry to AppInsights custom metrics using `psutil`. To visualize you can use the [Kusto Query Language](https://docs.microsoft.com/en-us/azure/kusto/query/) in AppInsights.
+Log your system telemetry to AppInsights custom metrics using the [psutil](https://psutil.readthedocs.io/en/latest/) library in Python. To visualize the telemetry data you can use [Kusto Query Language](https://docs.microsoft.com/en-us/azure/kusto/query/) in AppInsights.
 
 ## Quick'n'dirty
 
 ```sh
 curl https://raw.githubusercontent.com/chaosmail/appinsights-telemetry-python/master/main.py
-pip install appinsights psutil
+python -m pip install appinsights psutil
 python main.py -- options
 ```
 
 ## Options
+
+By default, the telemetry logger only logs the CPU utilization in percent. However, many other metrics exposed by `psutil` can be logged as well using the apppropriate command line options.
 
 ```
 usage: main.py [-h] -k APPINSIGHTS_KEY [-c CPU_INTERVAL] [-l LOG_INTERVAL]
