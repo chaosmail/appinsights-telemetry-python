@@ -2,6 +2,7 @@ from applicationinsights import TelemetryClient
 from time import sleep
 import argparse
 import psutil
+import socket
 
 
 # wait x seconds to compute the CPU utilization
@@ -104,39 +105,52 @@ def get_network_counters(args={}):
 
     return res
 
-def track_dict_as_metric(tc, d, prefix=''):
+def get_properties(args={}):
+    hostname = socket.gethostname()
+    fqdn = socket.getfqdn()
+    
+    return {
+        'hostname': hostname,
+        'fqdn': fqdn,
+    }
+
+def track_dict_as_metric(tc, d, properties={}, prefix=''):
     """Recursively emits a dict of values as metric to app insights"""
     for k, v in d.items():
         if isinstance(v, dict):
-            track_dict_as_metric(tc, v, "%s." % k)
+            track_dict_as_metric(tc, v, properties, "%s." % k)
         else:
-            tc.track_metric("%s%s" % (prefix, k), v)
+            tc.track_metric("%s%s" % (prefix, k), v, properties=properties)
 
 def perform_log(tc, args={}):
     """Collects all counters and tracks them"""
     opt_print = args.get('print', False)
+    properties = get_properties()
+
+    if print:
+        print(properties)
 
     cpu = get_cpu_counters(args)
     if len(cpu) > 0:
-        track_dict_as_metric(tc, cpu)
+        track_dict_as_metric(tc, cpu, properties=properties)
         if opt_print:
             print(cpu)
 
     memory = get_memory_counters(args)
     if len(memory) > 0:
-        track_dict_as_metric(tc, memory)
+        track_dict_as_metric(tc, memory, properties=properties)
         if opt_print:
             print(memory)
 
     disk = get_disk_counters(args)
     if len(disk) > 0:
-        track_dict_as_metric(tc, disk)
+        track_dict_as_metric(tc, disk, properties=properties)
         if opt_print:
             print(disk)
     
     network = get_network_counters(args)
     if len(network) > 0:
-        track_dict_as_metric(tc, network)
+        track_dict_as_metric(tc, network, properties=properties)
         if opt_print:
             print(network)
 
